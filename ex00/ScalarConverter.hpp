@@ -3,17 +3,19 @@
 #define SCALAR_HPP
 
 #include <iostream>
+#include <ctype.h>
+#include <cstdlib>
 
 class ScalarConverter {
 	private:
 		ScalarConverter(void);
-		ScalarConverter(const ScalarConverter &src);
-		ScalarConverter operator = (const ScalarConverter &src);
+		ScalarConverter(const ScalarConverter &);
+		ScalarConverter operator = (const ScalarConverter &);
 		~ScalarConverter(void);
-		static void toChar(std::string &);
-		static void toInt(std::string &);
-		static void toFloat(std::string &);
-		static void toDouble(std::string &);
+		void toChar(double &);
+		void toInt(double &);
+		void toFloat(double &);
+		void toDouble(double &);
 	public:
 		static void convert(std::string &);
 };

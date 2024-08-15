@@ -26,30 +26,38 @@ ScalarConverter::~ScalarConverter(void)
 // Class functions 
 // ------------------------------------------------------------------------
 
-void ScalarConverter::convert(std::string &string)
+void ScalarConverter::convert(std::string &arg)
 {
-	toChar(string);
-	toInt(string);
-	toFloat(string);
-	toDouble(string);
+	double digit = std::strtod(arg.c_str(), NULL);
+	ScalarConverter test1;
+	test1.toChar(digit);
+	test1.toInt(digit);
+	test1.toFloat(digit);
+	test1.toDouble(digit);
 }
 
-void ScalarConverter::toChar(std::string &string)
+void ScalarConverter::toChar(double &arg)
 {
-	std::cout<<"char: "<<string.c_str()<<std::endl;
+	char d = static_cast<char>(arg);
+	if (isascii(d) && isprint(d))
+		std::cout<<"char: "<<d<<std::endl;
+	else if (arg.length() > 1)
+		std::cout<<"char: "<<"impossible"<<std::endl;
+	else
+		std::cout<<"char: "<<"Non displayable"<<std::endl;
 }
 
-void ScalarConverter::toInt(std::string &string)
+void ScalarConverter::toInt(double &arg)
 {
-	std::cout<<"int: "<<string<<std::endl;
+	std::cout<<"int: "<<arg<<std::endl;
 }
 
-void ScalarConverter::toFloat(std::string &string)
+void ScalarConverter::toFloat(double &arg)
 {
-	std::cout<<"float: "<<string<<std::endl;
+	std::cout<<"float: "<<arg<<std::endl;
 }
 
-void ScalarConverter::toDouble(std::string &string)
+void ScalarConverter::toDouble(double &arg)
 {
-	std::cout<<"double: "<<string<<std::endl;
+	std::cout<<"double: "<<arg<<std::endl;
 }

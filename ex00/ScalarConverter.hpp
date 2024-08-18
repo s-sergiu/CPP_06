@@ -4,7 +4,10 @@
 
 #include <iostream>
 #include <ctype.h>
+#include <cmath>
+#include <iomanip>
 #include <cstdlib>
+#include <limits>
 
 class ScalarConverter {
 	private:
@@ -12,10 +15,11 @@ class ScalarConverter {
 		ScalarConverter(const ScalarConverter &);
 		ScalarConverter operator = (const ScalarConverter &);
 		~ScalarConverter(void);
-		void toChar(double &);
-		void toInt(double &);
-		void toFloat(double &);
-		void toDouble(double &);
+		bool strToNum(std::string &, double *);
+		void toChar(std::string &);
+		void toInt(std::string &);
+		void toFloat(std::string &);
+		void toDouble(std::string &);
 	public:
 		static void convert(std::string &);
 };

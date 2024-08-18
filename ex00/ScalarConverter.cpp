@@ -26,38 +26,77 @@ ScalarConverter::~ScalarConverter(void)
 // Class functions 
 // ------------------------------------------------------------------------
 
-void ScalarConverter::convert(std::string &arg)
+bool ScalarConverter::strToNum(std::string &arg, double *digit)
 {
-	double digit = std::strtod(arg.c_str(), NULL);
-	ScalarConverter test1;
-	test1.toChar(digit);
-	test1.toInt(digit);
-	test1.toFloat(digit);
-	test1.toDouble(digit);
+	char *test = NULL;
+	*digit = std::strtod(arg.c_str(), &test);
+	if (test[0] && test[0] != 'f')
+		return false;
+	return true;
 }
 
-void ScalarConverter::toChar(double &arg)
+void ScalarConverter::convert(std::string &arg)
 {
-	char d = static_cast<char>(arg);
-	if (isascii(d) && isprint(d))
-		std::cout<<"char: "<<d<<std::endl;
-	else if (arg.length() > 1)
+	ScalarConverter obj;
+	std::cout<<std::setprecision(1)<<std::fixed;
+	obj.toChar(arg);
+	obj.toInt(arg);
+	obj.toFloat(arg);
+	obj.toDouble(arg);
+}
+
+void ScalarConverter::toChar(std::string &arg)
+{
+	double digit;
+	if (!strToNum(arg,&digit))
 		std::cout<<"char: "<<"impossible"<<std::endl;
-	else
+	else if (isascii(digit) && isprint(digit)) {
+		char c = static_cast<char>(digit);
+		std::cout<<"char: "<<c<<std::endl;
+	} else
 		std::cout<<"char: "<<"Non displayable"<<std::endl;
 }
 
-void ScalarConverter::toInt(double &arg)
+void ScalarConverter::toInt(std::string &arg)
 {
-	std::cout<<"int: "<<arg<<std::endl;
+	double digit;
+	if (!strToNum(arg,&digit))
+		std::cout<<"int: "<<"impossible"<<std::endl;
+	else if (isnan(digit))
+		std::cout<<"int: "<<digit<<std::endl;
+	else if (digit > std::numeric_limits<int>::max() 
+		|| digit < std::numeric_limits<int>::min())
+		std::cout<<"int: "<<"impossible"<<std::endl;
+	else
+		std::cout<<"int: "<<static_cast<int>(digit)<<std::endl;
 }
 
-void ScalarConverter::toFloat(double &arg)
+void ScalarConverter::toFloat(std::string &arg)
 {
-	std::cout<<"float: "<<arg<<std::endl;
+	double digit;
+	bool flag = strToNum(arg,&digit);
+	float f = static_cast<float>(digit);
+	if (!flag)
+		std::cout<<"float: "<<"impossible"<<std::endl;
+	else if (f == std::numeric_limits<float>::max() 
+		|| f == std::numeric_limits<float>::min())
+		std::cout<<"float: "<<"impossible"<<std::endl;
+	else if (digit == std::numeric_limits<float>::infinity())
+		std::cout<<"float: +"<<f<<"f"<<std::endl;
+	else
+		std::cout<<"float: "<<f<<"f"<<std::endl;
 }
 
-void ScalarConverter::toDouble(double &arg)
+void ScalarConverter::toDouble(std::string &arg)
 {
-	std::cout<<"double: "<<arg<<std::endl;
+	double digit;
+	if (!strToNum(arg,&digit))
+		std::cout<<"double: "<<"impossible"<<std::endl;
+	else if (digit == std::numeric_limits<double>::max() 
+		|| digit == std::numeric_limits<double>::min())
+		std::cout<<"double: "<<"impossible"<<std::endl;
+	else if (digit == std::numeric_limits<double>::infinity())
+		std::cout<<"double: +"<<digit<<std::endl;
+	else
+		std::cout<<"double: "<<digit<<std::endl;
 }

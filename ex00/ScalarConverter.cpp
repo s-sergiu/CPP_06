@@ -30,6 +30,7 @@ bool ScalarConverter::strToNum(std::string &arg, double *digit)
 {
 	char *test = NULL;
 	*digit = std::strtod(arg.c_str(), &test);
+
 	if (test[0] && test[0] != 'f')
 		return false;
 	return true;
@@ -60,7 +61,7 @@ void ScalarConverter::toChar(std::string &arg)
 void ScalarConverter::toInt(std::string &arg)
 {
 	double digit;
-	if (!strToNum(arg,&digit))
+	if (!strToNum(arg,&digit) || isnan(digit))
 		std::cout<<"int: "<<"impossible"<<std::endl;
 	else if (isnan(digit))
 		std::cout<<"int: "<<digit<<std::endl;

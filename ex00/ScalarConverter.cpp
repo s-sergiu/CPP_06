@@ -99,5 +99,5 @@ void ScalarConverter::toDouble(std::string &arg)
 	else if (digit == std::numeric_limits<double>::infinity())
 		std::cout<<"double: +"<<digit<<std::endl;
 	else
-		std::cout<<"double: "<<digit<<std::endl;
+		std::cout<<"double: "<<static_cast<double>(digit)<<std::endl;
 }

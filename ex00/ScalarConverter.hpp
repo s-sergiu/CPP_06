@@ -3,7 +3,6 @@
 #define SCALAR_HPP
 
 #include <iostream>
-#include <ctype.h>
 #include <cmath>
 #include <iomanip>
 #include <cstdlib>

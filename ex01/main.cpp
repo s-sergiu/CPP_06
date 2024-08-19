@@ -4,22 +4,19 @@
 
 int main(void) {
 	
-	Data test;
-	Data *test1 = NULL;
+	Data struct_data;
+	Data deserialized_data;
 
-	test.n = 2;
-	uintptr_t bla = 4;
+	struct_data.n = 24;
+	uintptr_t ptr;
 
-	printf("test1 address %p\n", &test);
-	printf("test1 address %p\n", &bla);
-	std::cout<<"before bla: "<<bla<<std::endl;
-	std::cout<<"before tets.n: "<<test.n<<std::endl;
-	bla = Serializer::serialize(&test);
-	test1 = Serializer::deserialize(bla);
-	printf("after address %p\n", &bla);
-	std::cout<<"after bla: "<<bla<<std::endl;
-	std::cout<<"after test.n: "<<test.n<<std::endl;
+	ptr = Serializer::serialize(&struct_data);
+	std::cout<<"normal struct: "<<struct_data.n<<std::endl;
+	std::cout<<"deserialized before: "<<deserialized_data.n<<std::endl;
+	std::cout<<"ptr: "<<ptr<<std::endl;
+	deserialized_data = *Serializer::deserialize(ptr);
+	std::cout<<"deserialized: "<<deserialized_data.n<<std::endl;
+	//struct_data = Serializer::deserialize(ptr);
 
-	std::cout<<"test1: "<<test1->n<<std::endl;
 	return (0);
 }
